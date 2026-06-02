@@ -2,6 +2,7 @@ package com.hexastd.almacenamiento
 
 import android.content.Context
 import android.os.Bundle
+import java.io.File
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -67,6 +68,16 @@ class MainActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 binding.tvPrivateFilesOutput.text = "Error: ${e.message}"
+            }
+        }
+
+        binding.btnCreateCacheFile.setOnClickListener {
+            try {
+                val cacheFile = File.createTempFile("session_tmp", ".dat", cacheDir)
+                cacheFile.writeText("ID_Sesion: 0x99283")
+                binding.tvCacheOutput.text = "Temporal: ${cacheFile.name}\nRuta: ${cacheFile.absolutePath}"
+            } catch (e: Exception) {
+                binding.tvCacheOutput.text = "Error: ${e.message}"
             }
         }
     }
