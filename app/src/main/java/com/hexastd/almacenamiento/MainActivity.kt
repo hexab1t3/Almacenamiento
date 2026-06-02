@@ -52,5 +52,22 @@ class MainActivity : AppCompatActivity() {
                 binding.tvPrivateFilesOutput.text = "Error: ${e.message}"
             }
         }
+
+        binding.btnListSandboxFiles.setOnClickListener {
+            try {
+                val arrayArchivos = fileList()
+                if (arrayArchivos.isEmpty()) {
+                    binding.tvPrivateFilesOutput.text = "No hay archivos"
+                } else {
+                    val builder = StringBuilder()
+                    arrayArchivos.forEach { filename ->
+                        builder.append(filename).append("\n")
+                    }
+                    binding.tvPrivateFilesOutput.text = builder.toString().trim()
+                }
+            } catch (e: Exception) {
+                binding.tvPrivateFilesOutput.text = "Error: ${e.message}"
+            }
+        }
     }
 }
