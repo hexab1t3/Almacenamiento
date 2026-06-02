@@ -40,5 +40,17 @@ class MainActivity : AppCompatActivity() {
                 binding.tvPrivateFilesOutput.text = "Error: ${e.message}"
             }
         }
+
+        binding.btnReadPrivateFile.setOnClickListener {
+            val filename = "datos_usuario.txt"
+            try {
+                openFileInput(filename).bufferedReader().use { reader ->
+                    val text = reader.readText()
+                    binding.tvPrivateFilesOutput.text = text
+                }
+            } catch (e: Exception) {
+                binding.tvPrivateFilesOutput.text = "Error: ${e.message}"
+            }
+        }
     }
 }
