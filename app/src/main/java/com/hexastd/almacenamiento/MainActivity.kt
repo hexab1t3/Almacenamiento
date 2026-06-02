@@ -1,5 +1,6 @@
 package com.hexastd.almacenamiento
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +26,19 @@ class MainActivity : AppCompatActivity() {
         binding.btnGetSandboxPath.setOnClickListener {
             val path = filesDir.absolutePath
             binding.tvSandboxPath.text = "Ruta absoluta:\n$path"
+        }
+
+        binding.btnWritePrivateFile.setOnClickListener {
+            val filename = "datos_usuario.txt"
+            val fileContents = binding.etFileContent.text.toString()
+            try {
+                openFileOutput(filename, Context.MODE_PRIVATE).use { output ->
+                    output.write(fileContents.toByteArray())
+                }
+                binding.tvPrivateFilesOutput.text = "Guardado correctamente en $filename"
+            } catch (e: Exception) {
+                binding.tvPrivateFilesOutput.text = "Error: ${e.message}"
+            }
         }
     }
 }
